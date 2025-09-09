@@ -25,6 +25,14 @@ def blink_led() -> None:
     - 종료시 LED는 OFF 상태
     """
     # TODO: blink_led 구현
+    led = LED(18)
+    for _ in range(10):
+        led.on()
+        time.sleep(1)
+        led.off()
+        time.sleep(1)
+    led.off()
+    
 
     raise NotImplementedError
 
