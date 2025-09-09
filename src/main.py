@@ -47,6 +47,20 @@ def check_to_input_button() -> None:
     - 버튼 입력을 10번 받았으면 종료.
     """
     # TODO: check_to_input_button 구현
+    button = Button(18)
+    count = 0
+    prev_state = button.is_pressed
+
+    while count < 10:
+        curr_state = button.is_pressed
+        if curr_state != prev_state:
+            if curr_state:
+                print('pressed')
+            else:
+                print('released')
+            count += 1
+            prev_state = curr_state
+        time.sleep(0.01)
 
     raise NotImplementedError
 
@@ -63,6 +77,22 @@ def blink_led_through_button() -> None:
     # TODO: blink_led_through_button 구현
     led = LED(12)
     led.on()
+    button = Button(13)
+    count = 0
+    prev_state = button.is_pressed
+
+    while count < 10:
+        # 버튼 눌림 감지
+        if button.is_pressed and not prev_state:
+            count += 1
+        prev_state = button.is_pressed
+
+        # 버튼이 눌려 있는 동안 LED 깜빡임
+        while button.is_pressed:
+            led.toggle()
+            time.sleep(0.5)
+        led.off()
+    led.off()
 
     raise NotImplementedError
 
