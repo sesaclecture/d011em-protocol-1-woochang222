@@ -104,6 +104,11 @@ def transmit_msg() -> None:
     - 개행을 붙여 전송 (수신/테스트 편의)
     """
     # TODO: blink_led_through_button 구현
+    with Serial('/dev/ttyAMA3"', 115200, timeout=1) as ser:
+        for i in range(10):
+            msg = f"Hello World! {i}\n"
+            ser.write(msg.encode())
+            time.sleep(1)
 
     raise NotImplementedError
 
@@ -114,7 +119,13 @@ def receive_msg() -> None:
     - 'exit' (대소문자 무시) 라인을 수신하면 함수 종료
     """
     # TODO: blink_led_through_button 구현
-
+    with Serial('/dev/ttyAMA3', 115200, timeout=1) as ser:
+        while True:
+            line = ser.readline().decode(errors='ignore').strip()
+            if line:
+                print(line)
+                if line.lower() == 'exit':
+                    break
     raise NotImplementedError
 
 
